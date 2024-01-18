@@ -2,9 +2,11 @@
 
 App::App()
 {
+    SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT | FLAG_WINDOW_HIGHDPI);
     InitWindow(this->m_width, this->m_height, "Sorting Visualizer");
     SetTargetFPS(60);
     rlImGuiSetup(true);
+    SetExitKey(0);
 
     this->m_algorithms.push_back(&MergeSort::GetInstance());
     this->m_algorithms.push_back(&BubbleSort::GetInstance());
