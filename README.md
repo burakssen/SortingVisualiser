@@ -13,6 +13,7 @@ A sorting visualisation application written in C++.
 - Can shuffle the bars
 - Multiple sorting algorithms
 - Visual indication of the number of comparisons and swaps
+- Sorting algorithms runs on seperate threads from rendering.
 
   
 ## Installation 
