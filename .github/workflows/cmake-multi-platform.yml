@@ -36,6 +36,8 @@ jobs:
             c_compiler: clang
           - os: ubuntu-latest
             c_compiler: cl
+          - os: macos-latest
+            c_compiler: cl
 
     steps:
     - uses: actions/checkout@v3
@@ -54,12 +56,6 @@ jobs:
         if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
           sudo apt-get update
           sudo apt-get install -y xrandr libxrandr-dev
-        elif [ "${{ matrix.os }}" == "windows-latest" ]; then
-          # Install dependencies on Windows using Chocolatey or other package manager.
-          # Example: choco install <your_dependency_package_names>
-        elif [ "${{ matrix.os }}" == "macos-latest" ]; then
-          # Install dependencies on macOS using Homebrew or other package manager.
-          # Example: brew install <your_dependency_package_names>
         fi
 
     - name: Configure CMake
