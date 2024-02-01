@@ -53,9 +53,10 @@ jobs:
         submodules: 'true'
 
     - name: Dependencies
-      uses: daaku/gh-action-apt-install@v4
-      with:
-        packages: xrandr-dev
+      run: |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          apt install xrandr libxrandr-dev
+        fi
 
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
