@@ -27,18 +27,6 @@ target_include_directories(sorting PUBLIC
     "${VENDOR_DIR}/raylib/src"
     "${VENDOR_DIR}/imgui"
     "${VENDOR_DIR}/rlImGui"
-    "/opt/homebrew/Cellar/glfw/3.3.9/include"
 )
 
-target_link_directories( sorting PUBLIC
-    "/opt/homebrew/Cellar/glfw/3.3.9/lib"
-)
-
-target_link_libraries(sorting 
-    raylib
-    glfw
-    "-framework OpenAL"
-    "-framework OpenGL"
-    "-framework Cocoa"
-    "-framework IOKit"
-)
+target_link_libraries(sorting PUBLIC raylib)
