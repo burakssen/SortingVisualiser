@@ -36,6 +36,9 @@ jobs:
           - os: ubuntu-latest
             c_compiler: clang
             cpp_compiler: clang++
+          - os: macos-latest
+            c_compiler: clang
+            cpp_compiler: clang++
         exclude:
           - os: windows-latest
             c_compiler: gcc
@@ -48,6 +51,11 @@ jobs:
     - uses: actions/checkout@v3
       with:
         submodules: 'true'
+
+    - name: Dependencies
+      uses: daaku/gh-action-apt-install@v4
+      with:
+        packages: xrandr-dev
 
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
