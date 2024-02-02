@@ -33,12 +33,6 @@ jobs:
           - os: ubuntu-latest
             c_compiler: gcc
             cpp_compiler: g++
-          - os: ubuntu-latest
-            c_compiler: clang
-            cpp_compiler: clang++
-          - os: macos-latest
-            c_compiler: gcc
-            cpp_compiler: g++
         exclude:
           - os: windows-latest
             c_compiler: gcc
@@ -46,10 +40,6 @@ jobs:
             c_compiler: clang
           - os: ubuntu-latest
             c_compiler: cl
-          - os: macos-latest
-            c_compiler: cl
-          - os: macos-latest
-            c_compiler: clang
 
     steps:
       - uses: actions/checkout@v3
@@ -62,6 +52,13 @@ jobs:
         shell: bash
         run: |
           echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/cache@v4.0.0
+        with:
+          path: ${{ steps.strings.outputs.build-output-dir }}
+          key: ${{ runner.os }}-cmake-${{ hashFiles('**/CMakeLists.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-cmake-
 
       - name: Install Dependencies (Ubuntu)
         if: matrix.os == 'ubuntu-latest'
@@ -88,3 +85,13 @@ jobs:
         # Execute tests defined by the CMake configuration. Note that --build-config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
         # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
         run: ctest --build-config ${{ matrix.build_type }}
+
+      - name: Download tar artifacts
+        # You may pin to the exact commit or the version.
+        # uses: echapmanFromBunnings/download-artifact@dffe108e03c9fa796a52bde641dd8d3a0ed5327f
+        uses: echapmanFromBunnings/download-artifact@3.0.0
+        with:
+          # Artifact name
+          name: SortingVisualiser
+          # Destination path
+          path: ${{ github.workspace }}/build
